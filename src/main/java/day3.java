@@ -13,7 +13,7 @@ import exception.AnswerNotAvailableException;
 
 /**
  * Advent of Code 2020
- * Day 3 Part 1
+ * Day 3
  * <p>
  * --- Day 3: Toboggan Trajectory ---
  * With the toboggan login problems resolved, you set off toward the airport. While travel by toboggan might be easy,
@@ -101,6 +101,7 @@ public class day3
     }
 
     /**
+     * --- Part One ---
      * Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would
      * you encounter?
      */

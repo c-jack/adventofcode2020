@@ -14,7 +14,7 @@ import exception.AnswerNotAvailableException;
 
 /**
  * Advent of Code 2020
- * Day 2 Part 1
+ * Day 2
  * <p>
  * --- Day 2: Password Philosophy ---
  * Your flight departs in a few days from the coastal airport; the easiest way down to the coast from here is via
@@ -63,6 +63,7 @@ public class day2
     }
 
     /**
+     * --- Part One ---
      * In the above example, 2 passwords are valid. The middle password, cdefg, is not; it contains no instances of b,
      * but needs at least 1. The first and third passwords are valid: they contain one a or nine c, both within the
      * limits of their respective policies.

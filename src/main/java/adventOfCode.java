@@ -30,13 +30,14 @@ public class adventOfCode
         selectionMap.put( "4", "Day 2: Password Philosophy - Part 2" );
         selectionMap.put( "5", "Day 3: Toboggan Trajectory - Part 1" );
         selectionMap.put( "6", "Day 3: Toboggan Trajectory - Part 2" );
+        selectionMap.put( "7", "Day 4: Toboggan Trajectory - Part 1" );
+        selectionMap.put( "8", "Day 4: Toboggan Trajectory - Part 2" );
         selectionMap.put( "quit", "Exit" );
     }
 
 
     /**
      * Build the menu to display
-     *
      */
     public static void menu()
     {
@@ -57,7 +58,7 @@ public class adventOfCode
         System.out.println( "|-------------------------------------------|" );
         for ( final Map.Entry<String, String> a : selectionMap.entrySet() )
         {
-            if(!a.getKey().equals( "quit" ))
+            if ( !a.getKey().equals( "quit" ) )
             {
                 System.out.println( "--> (" + a.getKey() + ") " + a.getValue() );
             }
@@ -82,6 +83,11 @@ public class adventOfCode
         System.out.println( "Bye!" );
     }
 
+    /**
+     * Process the chosen menu option
+     *
+     * @param selection the menu option selected
+     */
     private static void getOption( final String selection )
     {
         try
@@ -105,6 +111,12 @@ public class adventOfCode
                     break;
                 case "6":
                     new day3( 2 );
+                    break;
+                case "7":
+                    new day4( 1 );
+                    break;
+                case "8":
+                    new day4( 2 );
                     break;
             }
         }

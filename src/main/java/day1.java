@@ -12,7 +12,7 @@ import exception.AnswerNotAvailableException;
 
 /**
  * Advent of Code 2020
- * Day 1 Part 1
+ * Day 1
  * <p>
  * --- Day 1: Report Repair ---
  * After saving Christmas five years in a row, you've decided to take a vacation at a nice resort on a tropical
