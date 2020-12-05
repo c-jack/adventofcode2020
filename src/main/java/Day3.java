@@ -5,6 +5,7 @@
 
 import static constants.Constants.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import exception.AnswerNotAvailableException;
@@ -80,7 +81,6 @@ import utils.AOCUtils;
  */
 public class Day3
 {
-
     public static final char TREE = '#';
 
     /**
@@ -88,6 +88,9 @@ public class Day3
      */
     public Day3() throws AnswerNotAvailableException
     {
+        // Check the logic with the examples before calculating answers
+        testLogic();
+
         System.out.println( THE_ANSWER_IS_PT1 + part1() );
         System.out.println( THE_ANSWER_IS_PT2 + part2() );
     }
@@ -96,7 +99,7 @@ public class Day3
      * --- Part One ---
      * Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would
      * you encounter?
-     *
+     * <p>
      * Answer: 162
      */
     private int part1()
@@ -104,7 +107,7 @@ public class Day3
         // Set to TRUE to print the map
         final boolean printMap = false;
 
-        return countTrees( printMap, 3, 1 );
+        return countTrees( printMap, 3, 1, getData() );
     }
 
 
@@ -124,37 +127,35 @@ public class Day3
      * these produce the answer 336.
      * <p>
      * What do you get if you multiply together the number of trees encountered on each of the listed slopes?
-     *
+     * <p>
      * Answer: 3064612320
      */
     private long part2()
     {
 
-        final long path1 = countTrees( false, 1, 1 );
-        final long path2 = countTrees( false, 3, 1 );
-        final long path3 = countTrees( false, 5, 1 );
-        final long path4 = countTrees( false, 7, 1 );
-        final long path5 = countTrees( false, 1, 2 );
+        final long path1 = countTrees( false, 1, 1, getData() );
+        final long path2 = countTrees( false, 3, 1, getData() );
+        final long path3 = countTrees( false, 5, 1, getData() );
+        final long path4 = countTrees( false, 7, 1, getData() );
+        final long path5 = countTrees( false, 1, 2, getData() );
 
         return path1 * path2 * path3 * path4 * path5;
     }
 
-
     /**
      * Count the trees encountered on the map when given the provided right/down params
      *
-     * @param printMap whether to output the amended map to the console with tree positions
-     * @param right    how many steps to the right to take per iteration
-     * @param down     how many steps down to take per iteration
+     * @param printMap   whether to output the amended map to the console with tree positions
+     * @param right      how many steps to the right to take per iteration
+     * @param down       how many steps down to take per iteration
+     * @param mapOfTrees the map of tree data
      * @return the number of trees (#) encountered
      */
-    private int countTrees( final boolean printMap, final int right, final int down )
+    private int countTrees( final boolean printMap, final int right, final int down, final List<String> mapOfTrees )
     {
-        final List<String> mapOfTrees = getData();
         int currentRow = 0;
         int currentCol = 0;
         int treeCount = 0;
-
 
         if ( printMap )
         {
@@ -172,7 +173,6 @@ public class Day3
             {
                 row += row;
             }
-
 
             char icon = 'O';
             if ( row.charAt( currentCol ) == TREE )
@@ -200,5 +200,37 @@ public class Day3
     private List<String> getData()
     {
         return AOCUtils.getData( getClass().getName() );
+    }
+
+    /* *************** *
+     *     TESTS       *
+     * *************** */
+
+    /**
+     * Checks the logic against the examples in the question
+     */
+    private void testLogic()
+    {
+        final List<String> exampleData = Arrays.asList(
+                "..##.......",
+                "#...#...#..",
+                ".#....#..#.",
+                "..#.#...#.#",
+                ".#...##..#.",
+                "..#.##.....",
+                ".#.#.#....#",
+                ".#........#",
+                "#.##...#...",
+                "#...##....#",
+                ".#..#...#.#" );
+        assert countTrees( false, 3, 1, exampleData ) == 7;
+
+        final int part2 = countTrees( false, 1, 1, exampleData )
+                * countTrees( false, 3, 1, exampleData )
+                * countTrees( false, 5, 1, exampleData )
+                * countTrees( false, 7, 1, exampleData )
+                * countTrees( false, 1, 2, exampleData );
+
+        assert part2 == 336;
     }
 }

@@ -5,17 +5,14 @@
 
 import static constants.Constants.*;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import exception.AnswerNotAvailableException;
+import utils.AOCUtils;
 
 /**
  * Advent of Code 2020
@@ -47,14 +44,20 @@ import exception.AnswerNotAvailableException;
  */
 public class Day2
 {
-    public static final String CORRECT_PASSWORDS_KEY = "correct";
-    public static final String INCORRECT_PASSWORDS_KEY = "incorrect";
+    private static final String CORRECT_PASSWORDS_KEY = "correct";
+    private static final String INCORRECT_PASSWORDS_KEY = "incorrect";
+    private final Map<String, List<String>> results = new HashMap<>();
+    private final List<String> correctPasswords = new ArrayList<>();
+    private final List<String> incorrectPasswords = new ArrayList<>();
 
     /**
      * Constructor
      */
     public Day2() throws AnswerNotAvailableException
     {
+        // Check the logic with the examples before calculating answers
+        testLogic();
+
         System.out.println( THE_ANSWER_IS_PT1 + part1() );
         System.out.println( THE_ANSWER_IS_PT2 + part2() );
     }
@@ -66,14 +69,13 @@ public class Day2
      * limits of their respective policies.
      * <p>
      * How many passwords are valid according to their policies?
-     *
+     * <p>
      * Answer: 500
      */
     private int part1()
     {
-        return getIncorrectPasswords( 1 ).get( CORRECT_PASSWORDS_KEY ).size();
+        return getIncorrectPasswords( 1, getData() ).get( CORRECT_PASSWORDS_KEY ).size();
     }
-
 
     /**
      * --- Part Two ---
@@ -96,12 +98,12 @@ public class Day2
      * 2-9 c: ccccccccc is invalid: both position 2 and position 9 contain c.
      * <p>
      * How many passwords are valid according to the new interpretation of the policies?
-     *
+     * <p>
      * Answer: 313
      */
     private int part2()
     {
-        return getIncorrectPasswords( 2 ).get( CORRECT_PASSWORDS_KEY ).size();
+        return getIncorrectPasswords( 2, getData() ).get( CORRECT_PASSWORDS_KEY ).size();
     }
 
     /**
@@ -110,45 +112,34 @@ public class Day2
      * @param part the question part whose criteria should be applied
      * @return map of correct and incorrect password lists
      */
-    private Map<String, List<String>> getIncorrectPasswords( final int part )
+    private Map<String, List<String>> getIncorrectPasswords( final int part, final List<String> data )
     {
-        final Map<String, List<String>> results = new HashMap<>();
-        final List<String> correctPasswords = new ArrayList<>();
-        final List<String> incorrectPasswords = new ArrayList<>();
-        final URL resource = getClass().getClassLoader().getResource( getClass().getName() );
-        try
+        // Make sure the lists are reset
+        correctPasswords.clear();
+        incorrectPasswords.clear();
+
+        // Loop through all the values
+        for ( final String line : data )
         {
-            assert resource != null;
-            try ( final Stream<String> stream = Files.lines( Paths.get( resource.getPath() ) ) )
+
+            final List<String> entryParts = Arrays.asList( line.split( SINGLE_SPACE ) );
+            final String[] numbers = entryParts.get( 0 ).split( HYPHEN );
+            final String letterToCheck = entryParts.get( 1 ).split( COLON )[ 0 ];
+            final String password = entryParts.get( 2 );
+
+            final int lower = Integer.parseInt( numbers[ 0 ] );
+            final int upper = Integer.parseInt( numbers[ 1 ] );
+
+            if ( part == 1 )
             {
-                stream.forEach( line -> {
-
-                    final String numbers = line.substring( 0, line.indexOf( SINGLE_SPACE ) );
-                    final int lower = Integer.parseInt( numbers.substring( 0, numbers.indexOf( HYPHEN ) ) );
-                    final int upper = Integer.parseInt( numbers.substring( numbers.indexOf( HYPHEN ) + 1 ) );
-
-                    final String letterToCheck =
-                            line.substring( line.indexOf( SINGLE_SPACE ) + 1, line.indexOf( ": " ) );
-                    final String password = line.substring( line.indexOf( COLON + SINGLE_SPACE ) + 2 );
-
-                    if ( part == 1 )
-                    {
-                        calculatePart1Validity( correctPasswords, incorrectPasswords, lower, upper, letterToCheck,
-                                password );
-                    }
-                    else if ( part == 2 )
-                    {
-                        calculatePart2Validity( correctPasswords, incorrectPasswords, lower, upper, letterToCheck,
-                                password );
-                    }
-
-                } );
+                calculatePart1Validity( lower, upper, letterToCheck, password );
+            }
+            else if ( part == 2 )
+            {
+                calculatePart2Validity( lower, upper, letterToCheck, password );
             }
         }
-        catch ( final IOException e )
-        {
-            e.printStackTrace();
-        }
+
         results.put( CORRECT_PASSWORDS_KEY, correctPasswords );
         results.put( INCORRECT_PASSWORDS_KEY, incorrectPasswords );
         return results;
@@ -158,16 +149,15 @@ public class Day2
      * Calculates the Part 1 validity
      * The instances of the letterToCheck should be within the upper and lower boundaries
      *
-     * @param correctPasswords   list of correct passwords
-     * @param incorrectPasswords list of incorrect passwords
-     * @param lower              upper boundary
-     * @param upper              lower boundary
-     * @param letterToCheck      the letter to search for
-     * @param password           the password to validate
+     * @param lower         upper boundary
+     * @param upper         lower boundary
+     * @param letterToCheck the letter to search for
+     * @param password      the password to validate
      */
-    private void calculatePart1Validity( final List<String> correctPasswords, final List<String> incorrectPasswords,
-                                         final int lower,
-                                         final int upper, final String letterToCheck, final String password )
+    private void calculatePart1Validity( final int lower,
+                                         final int upper,
+                                         final String letterToCheck,
+                                         final String password )
     {
         int count = 0;
         for ( final char letter : password.toCharArray() )
@@ -190,19 +180,19 @@ public class Day2
 
     /**
      * Calculates the Part 2 validity
-     * At each index, only one character should match the letterToCheckfor the password to be valid
+     * At each index, only one character should match the letterToCheck for the password to be valid
      *
-     * @param correctPasswords   list of correct passwords
-     * @param incorrectPasswords list of incorrect passwords
-     * @param lower              upper index (0=1)
-     * @param upper              lower index (0=1)
-     * @param letterToCheck      the letter to search for
-     * @param password           the password to validate
+     * @param lower         upper index (0=1)
+     * @param upper         lower index (0=1)
+     * @param letterToCheck the letter to search for
+     * @param password      the password to validate
      */
-    private void calculatePart2Validity( final List<String> correctPasswords, final List<String> incorrectPasswords,
-                                         final int lower,
-                                         final int upper, final String letterToCheck, final String password )
+    private void calculatePart2Validity( final int lower,
+                                         final int upper,
+                                         final String letterToCheck,
+                                         final String password )
     {
+        // Correct the indexes to suit the array 0 start offset
         final int lowerIndex = lower - 1;
         final int upperIndex = upper - 1;
 
@@ -220,5 +210,29 @@ public class Day2
             }
         }
         incorrectPasswords.add( password );
+    }
+
+    /**
+     * Get the data for the question
+     *
+     * @return list of numbers
+     */
+    private List<String> getData()
+    {
+        return AOCUtils.getData( getClass().getName() );
+    }
+
+    /* *************** *
+     *     TESTS       *
+     * *************** */
+
+    /**
+     * Checks the logic against the examples in the question
+     */
+    private void testLogic()
+    {
+        final List<String> exampleData = Arrays.asList( "1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc" );
+        assert getIncorrectPasswords( 1, exampleData ).get( CORRECT_PASSWORDS_KEY ).size() == 2;
+        assert getIncorrectPasswords( 2, exampleData ).get( CORRECT_PASSWORDS_KEY ).size() == 1;
     }
 }

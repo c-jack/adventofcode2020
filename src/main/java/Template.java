@@ -3,6 +3,8 @@
  * adventofcode.Template
  */
 
+import static constants.Constants.*;
+
 import java.util.List;
 
 import exception.AnswerNotAvailableException;
@@ -18,45 +20,38 @@ import utils.AOCUtils;
  */
 public class Template
 {
-
     /**
      * Constructor
-     *
-     * @param part part to run
      */
-    public Template( final int part ) throws AnswerNotAvailableException
+    public Template() throws AnswerNotAvailableException
     {
-        if ( part == 1 )
-        {
-//            System.out.println( THE_ANSWER_IS + part1() );
-            throw new AnswerNotAvailableException();
-        }
-        else if ( part == 2 )
-        {
-//            System.out.println( THE_ANSWER_IS + part2() );
-            throw new AnswerNotAvailableException();
-        }
+        // Check the logic with the example before calculating answers
+        testLogic();
+
+        System.out.println( THE_ANSWER_IS_PT1 + part1( getData() ) );
+        System.out.println( THE_ANSWER_IS_PT2 + part2( getData() ) );
     }
 
     /**
      * --- Part One ---
+     *
+     * @param data
      */
-    private int part1()
+    private int part1( final List<String> data )
     {
         return 0;
     }
 
-
     /**
      * --- Part Two ---
+     *
+     * @param data
      */
-    private long part2()
+    private long part2( final List<String> data )
     {
 
-       return 0;
+        return 0;
     }
-
-
 
     /**
      * Get the data for the question
@@ -66,5 +61,17 @@ public class Template
     private List<String> getData()
     {
         return AOCUtils.getData( getClass().getName() );
+    }
+
+    /* *************** *
+     *     TESTS       *
+     * *************** */
+
+    /**
+     * Checks the logic against the examples in the question.
+     */
+    private void testLogic()
+    {
+        assert 1 == 1;
     }
 }

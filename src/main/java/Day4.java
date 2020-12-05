@@ -84,6 +84,9 @@ public class Day4
      */
     public Day4() throws AnswerNotAvailableException
     {
+        // Check the logic with the examples before calculating answers
+        testLogic();
+
         System.out.println( THE_ANSWER_IS_PT1 + part1() );
         System.out.println( THE_ANSWER_IS_PT2 + part2() );
     }
@@ -96,9 +99,8 @@ public class Day4
      */
     private int part1()
     {
-        return checkPassports( false );
+        return checkPassports( false, getData() );
     }
-
 
     /**
      * --- Part Two ---
@@ -174,23 +176,26 @@ public class Day4
      */
     private int part2()
     {
-        return checkPassports( true );
+        return checkPassports( true, getData() );
     }
-
 
     /**
      * Checks the validity of the passports.
      * This is the main entry method for retrieving the data and producing an answer
      *
      * @param checkData if TRUE, the data will be validated as per part 2.
+     * @param passports the passports to check
      * @return number of 'valid' passports
      */
-    private int checkPassports( final boolean checkData )
+    private int checkPassports( final boolean checkData, final List<String> passports )
     {
+        // Make sure the valid passport list is reset
+        validPassports.clear();
+
         StringBuilder passportStringBuilder = new StringBuilder();
         final List<String> passportsStrings = new ArrayList<>();
 
-        for ( final String line : getData() )
+        for ( final String line : passports )
         {
             passportStringBuilder.append( line ).append( SINGLE_SPACE );
             if ( line.length() == 0 )
@@ -254,7 +259,6 @@ public class Day4
         return AOCUtils.getData( getClass().getName() );
     }
 
-
     /**
      * Inner object to define a 'Passport'
      */
@@ -291,7 +295,6 @@ public class Day4
             }
             validate( checkData );
         }
-
 
         /**
          * Must contain all required fields and (part 2 only) pass validation for each field.
@@ -424,6 +427,65 @@ public class Day4
         {
             return valid;
         }
+    }
+
+    /* *************** *
+     *     TESTS       *
+     * *************** */
+
+    /**
+     * Checks the logic against the examples in the question
+     */
+    private void testLogic()
+    {
+        final List<String> exampleData = Arrays.asList(
+                "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd",
+                "byr:1937 iyr:2017 cid:147 hgt:183cm",
+                "",
+                "iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884",
+                "hcl:#cfa07d byr:1929",
+                "",
+                "hcl:#ae17e1 iyr:2013",
+                "eyr:2024",
+                "ecl:brn pid:760753108 byr:1931",
+                "hgt:179cm",
+                "",
+                "hcl:#cfa07d eyr:2025 pid:166559648",
+                "iyr:2011 ecl:brn hgt:59in" );
+        assert checkPassports( false, exampleData ) == 2;
+
+        // All these should be invalid
+        final List<String> invalidPassports = Arrays.asList(
+                "eyr:1972 cid:100",
+                "hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926",
+                "",
+                "iyr:2019",
+                "hcl:#602927 eyr:1967 hgt:170cm",
+                "ecl:grn pid:012533040 byr:1946",
+                "",
+                "hcl:dab227 iyr:2012",
+                "ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277",
+                "",
+                "hgt:59cm ecl:zzz",
+                "eyr:2038 hcl:74454a iyr:2023",
+                "pid:3556412378 byr:2007" );
+        assert checkPassports( true, invalidPassports ) == 0;
+
+        // All these should be valid
+        final List<String> validPassports = Arrays.asList(
+                "pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980",
+                "hcl:#623a2f",
+                "",
+                "eyr:2029 ecl:blu cid:129 byr:1989",
+                "iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm",
+                "",
+                "hcl:#888785",
+                "hgt:164cm byr:2001 iyr:2015 cid:88",
+                "pid:545766238 ecl:hzl",
+                "eyr:2022",
+                "",
+                "iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719" );
+        assert checkPassports( true, validPassports ) == 4;
     }
 }
 

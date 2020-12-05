@@ -69,7 +69,6 @@ import utils.AOCUtils;
  */
 public class Day5
 {
-
     private final List<Integer> seatIDs = new ArrayList<>();
     private List<Integer> row = new ArrayList<>();
     private List<Integer> aisle = new ArrayList<>();
@@ -79,12 +78,11 @@ public class Day5
      */
     public Day5() throws AnswerNotAvailableException
     {
-        // Check against examole
-        final int example = calculateSeatID( "FBFBBFFRLR" );
-        assert example == 357;
+        // Check the logic with the example before calculating answers
+        testLogic();
 
-        System.out.println( THE_ANSWER_IS_PT1 + part1() );
-        System.out.println( THE_ANSWER_IS_PT2 + part2() );
+        System.out.println( THE_ANSWER_IS_PT1 + part1( getData() ) );
+        System.out.println( THE_ANSWER_IS_PT2 + part2( getData() ) );
     }
 
     /**
@@ -92,13 +90,14 @@ public class Day5
      * What is the highest seat ID on a boarding pass?
      * <p>
      * Answer: 980
+     *
+     * @param tickets list of tickets
      */
-    private int part1() throws AnswerNotAvailableException
+    private int part1( final List<String> tickets ) throws AnswerNotAvailableException
     {
-        calculateSeatIDs();
+        calculateSeatIDs( tickets );
         return Collections.max( seatIDs );
     }
-
 
     /**
      * --- Part Two ---
@@ -113,10 +112,12 @@ public class Day5
      * What is the ID of your seat?
      * <p>
      * Answer: 607
+     *
+     * @param tickets list of tickets
      */
-    private long part2() throws AnswerNotAvailableException
+    private long part2( final List<String> tickets ) throws AnswerNotAvailableException
     {
-        calculateSeatIDs();
+        calculateSeatIDs( tickets );
 
         /*
          * Simplistically, the spare seat will be the one that is neither at the start or end,
@@ -134,14 +135,14 @@ public class Day5
     /**
      * Calculate all the seat IDs from the {@link #seatIDs} list
      *
+     * @param ticketData the list of tickets
      * @throws AnswerNotAvailableException if an invalid ticket pattern is supplied
      */
-    private void calculateSeatIDs() throws AnswerNotAvailableException
+    private void calculateSeatIDs( final List<String> ticketData ) throws AnswerNotAvailableException
     {
-        final List<String> data = getData();
 
         // Loop through all the lines - each one representing a ticket
-        for ( final String ticket : data )
+        for ( final String ticket : ticketData )
         {
             seatIDs.add( calculateSeatID( ticket ) );
         }
@@ -269,7 +270,6 @@ public class Day5
         return AOCUtils.getData( getClass().getName() );
     }
 
-
     /**
      * Enum for the list reduction strategy
      */
@@ -277,5 +277,20 @@ public class Day5
     {
         UPPER,
         LOWER
+    }
+
+    /* *************** *
+     *     TESTS       *
+     * *************** */
+
+    /**
+     * Checks the logic against the examples in the question.
+     * Part 2 doesn't have a validation example, so we'll just use part 1
+     *
+     * @throws AnswerNotAvailableException if the logic is broken or the sample data is invalid.
+     */
+    private void testLogic() throws AnswerNotAvailableException
+    {
+        assert part1( Collections.singletonList( "FBFBBFFRLR" )) == 357;
     }
 }

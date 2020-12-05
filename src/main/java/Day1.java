@@ -6,6 +6,7 @@
 import static constants.Constants.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,12 +53,14 @@ import utils.AOCUtils;
  */
 public class Day1
 {
-
     /**
      * Constructor
      */
     public Day1() throws AnswerNotAvailableException
     {
+        // Check the logic with the examples before calculating answers
+        testLogic();
+
         System.out.println( THE_ANSWER_IS_PT1 + part1() );
         System.out.println( THE_ANSWER_IS_PT2 + part2() );
     }
@@ -71,9 +74,8 @@ public class Day1
      */
     private int part1() throws AnswerNotAvailableException
     {
-        return getAnswer( 1 );
+        return getAnswer( 1, getData() );
     }
-
 
     /**
      * --- Part Two ---
@@ -94,19 +96,17 @@ public class Day1
      */
     private int part2() throws AnswerNotAvailableException
     {
-        return getAnswer( 2 );
+        return getAnswer( 2, getData() );
     }
 
     /**
      * Return the answer to the given part
      *
      * @param part the criteria switch depending on which question part
+     * @param integerList the data to check
      */
-    private int getAnswer( final int part ) throws AnswerNotAvailableException
+    private int getAnswer( final int part, final List<Integer> integerList ) throws AnswerNotAvailableException
     {
-        // Get the values from the file
-        final List<Integer> integerList = getData();
-
         // Loop through all the values
         for ( final int i : integerList )
         {
@@ -147,7 +147,6 @@ public class Day1
         throw new AnswerNotAvailableException();
     }
 
-
     /**
      * Get the data for the question
      *
@@ -158,4 +157,18 @@ public class Day1
         return AOCUtils.getIntegerData( getClass().getName() );
     }
 
+    /* *************** *
+     *     TESTS       *
+     * *************** */
+
+    /**
+     * Checks the logic against the examples in the question
+     *
+     * @throws AnswerNotAvailableException if the logic is broken or the sample data is invalid.
+     */
+    private void testLogic() throws AnswerNotAvailableException
+    {
+        assert getAnswer( 1, Arrays.asList( 1721, 979, 366, 299, 675, 1456 ) ) == 514579;
+        assert getAnswer( 2, Arrays.asList( 1721, 979, 366, 299, 675, 1456 ) ) == 241861950;
+    }
 }
