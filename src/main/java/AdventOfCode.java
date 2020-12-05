@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * adventofcode.AdventOfCode
+ */
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,7 +14,7 @@ import exception.AnswerNotAvailableException;
  *
  * @author chris.jackson
  */
-public class adventOfCode
+public class AdventOfCode
 {
     final static Map<String, String> selectionMap = new HashMap<>();
 
@@ -24,14 +29,16 @@ public class adventOfCode
      */
     private static void buildOptions()
     {
-        selectionMap.put( "1", "Day 1: Report Repair - Part 1" );
-        selectionMap.put( "2", "Day 1: Report Repair - Part 2" );
-        selectionMap.put( "3", "Day 2: Password Philosophy - Part 1" );
-        selectionMap.put( "4", "Day 2: Password Philosophy - Part 2" );
-        selectionMap.put( "5", "Day 3: Toboggan Trajectory - Part 1" );
-        selectionMap.put( "6", "Day 3: Toboggan Trajectory - Part 2" );
-        selectionMap.put( "7", "Day 4: Toboggan Trajectory - Part 1" );
-        selectionMap.put( "8", "Day 4: Toboggan Trajectory - Part 2" );
+        selectionMap.put( "1", "Day 1: Report Repair" );
+        selectionMap.put( "2", "Day 2: Password Philosophy" );
+        selectionMap.put( "3", "Day 3: Toboggan Trajectory" );
+        selectionMap.put( "4", "Day 4: Passport Processing" );
+        selectionMap.put( "5", "Day 5: Binary Boarding" );
+        selectionMap.put( "6", "Day 6: TBA" );
+        selectionMap.put( "7", "Day 7: TBA" );
+        selectionMap.put( "8", "Day 8: TBA" );
+        selectionMap.put( "9", "Day 9: TBA" );
+        selectionMap.put( "10", "Day 10: TBA" );
         selectionMap.put( "quit", "Exit" );
     }
 
@@ -44,14 +51,14 @@ public class adventOfCode
         String selection = "";
         final Scanner input = new Scanner( System.in );
 
-        System.out.println( "             *\n"
-                + "            /.\\\n"
-                + "           /..'\\\n"
-                + "           /'.'\\\n"
-                + "          /.''.'\\\n"
-                + "          /.'.'.\\\n"
-                + "         /'.''.'.\\\n"
-                + "         ^^^[_]^^^" );
+        System.out.println( "                      *\n"
+                + "                     /.\\\n"
+                + "                    /..'\\\n"
+                + "                    /'.'\\\n"
+                + "                   /.''.'\\\n"
+                + "                   /.'.'.\\\n"
+                + "                  /'.''.'.\\\n"
+                + "                  ^^^[_]^^^" );
         System.out.println( "|-------------------------------------------|" );
         System.out.println( "|  ~ Advent of Code 2020 : Chris Jackson ~  |" );
         System.out.println( "|   Pick a problem to run the solution for  |" );
@@ -77,7 +84,7 @@ public class adventOfCode
                 System.out.print( "Choice: " );
                 selection = input.next();
             }
-            getOption( selection );
+            getDayAnswers( selection );
         }
 
         System.out.println( "Bye!" );
@@ -88,36 +95,34 @@ public class adventOfCode
      *
      * @param selection the menu option selected
      */
-    private static void getOption( final String selection )
+    private static void getDayAnswers( final String selection )
     {
         try
         {
             switch ( selection )
             {
                 case "1":
-                    new day1( 1 );
+                    new Day1();
                     break;
                 case "2":
-                    new day1( 2 );
+                    new Day2();
                     break;
                 case "3":
-                    new day2( 1 );
+                    new Day3();
                     break;
                 case "4":
-                    new day2( 2 );
+                    new Day4();
                     break;
                 case "5":
-                    new day3( 1 );
+                    new Day5();
                     break;
                 case "6":
-                    new day3( 2 );
-                    break;
                 case "7":
-                    new day4( 1 );
-                    break;
                 case "8":
-                    new day4( 2 );
-                    break;
+                case "9":
+                case "10":
+                default:
+                    throw new AnswerNotAvailableException();
             }
         }
         catch ( final AnswerNotAvailableException e )

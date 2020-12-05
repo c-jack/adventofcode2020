@@ -1,14 +1,14 @@
+/*
+ * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * adventofcode.Day3
+ */
+
 import static constants.Constants.*;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import exception.AnswerNotAvailableException;
+import utils.AOCUtils;
 
 
 /**
@@ -78,32 +78,26 @@ import exception.AnswerNotAvailableException;
  *
  * @author chris.jackson
  */
-public class day3
+public class Day3
 {
 
     public static final char TREE = '#';
 
     /**
      * Constructor
-     *
-     * @param part part to run
      */
-    public day3( final int part ) throws AnswerNotAvailableException
+    public Day3() throws AnswerNotAvailableException
     {
-        if ( part == 1 )
-        {
-            System.out.println( THE_ANSWER_IS + part1() );
-        }
-        else if ( part == 2 )
-        {
-            System.out.println( THE_ANSWER_IS + part2() );
-        }
+        System.out.println( THE_ANSWER_IS_PT1 + part1() );
+        System.out.println( THE_ANSWER_IS_PT2 + part2() );
     }
 
     /**
      * --- Part One ---
      * Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would
      * you encounter?
+     *
+     * Answer: 162
      */
     private int part1()
     {
@@ -130,6 +124,8 @@ public class day3
      * these produce the answer 336.
      * <p>
      * What do you get if you multiply together the number of trees encountered on each of the listed slopes?
+     *
+     * Answer: 3064612320
      */
     private long part2()
     {
@@ -199,24 +195,10 @@ public class day3
     /**
      * Get the data for the question
      *
-     * @return map of trees
+     * @return string list of the data
      */
     private List<String> getData()
     {
-        final URL resource = getClass().getClassLoader().getResource( getClass().getName() );
-        final List<String> anActualTreeMap = new ArrayList<>();
-        try
-        {
-            assert resource != null;
-            try ( final Stream<String> stream = Files.lines( Paths.get( resource.getPath() ) ) )
-            {
-                stream.forEach( anActualTreeMap::add );
-            }
-        }
-        catch ( final IOException e )
-        {
-            e.printStackTrace();
-        }
-        return anActualTreeMap;
+        return AOCUtils.getData( getClass().getName() );
     }
 }

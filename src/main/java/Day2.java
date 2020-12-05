@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * adventofcode.Day2
+ */
+
 import static constants.Constants.*;
 
 import java.io.IOException;
@@ -40,26 +45,18 @@ import exception.AnswerNotAvailableException;
  *
  * @author chris.jackson
  */
-public class day2
+public class Day2
 {
     public static final String CORRECT_PASSWORDS_KEY = "correct";
     public static final String INCORRECT_PASSWORDS_KEY = "incorrect";
 
     /**
      * Constructor
-     *
-     * @param part part to run
      */
-    public day2( final int part ) throws AnswerNotAvailableException
+    public Day2() throws AnswerNotAvailableException
     {
-        if ( part == 1 )
-        {
-            System.out.println( THE_ANSWER_IS + part1() );
-        }
-        else if ( part == 2 )
-        {
-            System.out.println( THE_ANSWER_IS + part2() );
-        }
+        System.out.println( THE_ANSWER_IS_PT1 + part1() );
+        System.out.println( THE_ANSWER_IS_PT2 + part2() );
     }
 
     /**
@@ -69,7 +66,8 @@ public class day2
      * limits of their respective policies.
      * <p>
      * How many passwords are valid according to their policies?
-     * --------------------------------------------------------------------------------------------------------------
+     *
+     * Answer: 500
      */
     private int part1()
     {
@@ -98,10 +96,11 @@ public class day2
      * 2-9 c: ccccccccc is invalid: both position 2 and position 9 contain c.
      * <p>
      * How many passwords are valid according to the new interpretation of the policies?
+     *
+     * Answer: 313
      */
     private int part2()
     {
-
         return getIncorrectPasswords( 2 ).get( CORRECT_PASSWORDS_KEY ).size();
     }
 

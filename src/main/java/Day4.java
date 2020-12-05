@@ -1,17 +1,18 @@
+/*
+ * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * adventofcode.Day4
+ */
+
 import static constants.Constants.*;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import exception.AnswerNotAvailableException;
+import utils.AOCUtils;
 
 
 /**
@@ -74,30 +75,24 @@ import exception.AnswerNotAvailableException;
  *
  * @author chris.jackson
  */
-public class day4
+public class Day4
 {
     private final List<Passport> validPassports = new ArrayList<>();
 
     /**
      * Constructor
-     *
-     * @param part part to run
      */
-    public day4( final int part ) throws AnswerNotAvailableException
+    public Day4() throws AnswerNotAvailableException
     {
-        if ( part == 1 )
-        {
-            System.out.println( THE_ANSWER_IS + part1() );
-        }
-        else if ( part == 2 )
-        {
-            System.out.println( THE_ANSWER_IS + part2() );
-        }
+        System.out.println( THE_ANSWER_IS_PT1 + part1() );
+        System.out.println( THE_ANSWER_IS_PT2 + part2() );
     }
 
     /**
      * --- Part One ---
      * In your batch file, how many passports are valid?
+     * <p>
+     * Answer: 250
      */
     private int part1()
     {
@@ -174,6 +169,8 @@ public class day4
      * iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
      * Count the number of valid passports - those that have all required fields and valid values. Continue to treat
      * cid as optional. In your batch file, how many passports are valid?
+     * <p>
+     * Answer: 408
      */
     private int part2()
     {
@@ -247,29 +244,14 @@ public class day4
         return passports;
     }
 
-
     /**
      * Get the data for the question
      *
-     * @return list of passport data lines
+     * @return string list of the data
      */
     private List<String> getData()
     {
-        final URL resource = getClass().getClassLoader().getResource( getClass().getName() );
-        final List<String> data = new ArrayList<>();
-        try
-        {
-            assert resource != null;
-            try ( final Stream<String> stream = Files.lines( Paths.get( resource.getPath() ) ) )
-            {
-                stream.forEach( data::add );
-            }
-        }
-        catch ( final IOException e )
-        {
-            e.printStackTrace();
-        }
-        return data;
+        return AOCUtils.getData( getClass().getName() );
     }
 
 

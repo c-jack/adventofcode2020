@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * adventofcode.AnswerNotAvailableException
+ */
+
 package exception;
 
 /**

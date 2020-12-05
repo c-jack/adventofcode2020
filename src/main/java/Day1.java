@@ -1,14 +1,16 @@
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+/*
+ * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * adventofcode.Day1
+ */
+
+import static constants.Constants.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
-import constants.Constants;
 import exception.AnswerNotAvailableException;
+import utils.AOCUtils;
 
 /**
  * Advent of Code 2020
@@ -48,51 +50,59 @@ import exception.AnswerNotAvailableException;
  *
  * @author chris.jackson
  */
-public class day1
+public class Day1
 {
 
     /**
      * Constructor
-     *
-     * @param part part to run
      */
-    public day1( final int part ) throws AnswerNotAvailableException
+    public Day1() throws AnswerNotAvailableException
     {
-        if ( part == 1 )
-        {
-            /*
-             * --- Part One ---
-             * Find the two entries that sum to 2020; what do you get if you
-             * multiply them together?
-             */
-            System.out.println( Constants.THE_ANSWER_IS + getAnswer( 1 ) );
-        }
-        else if ( part == 2 )
-        {
-            /*
-             * --- Part Two ---
-             * The Elves in accounting are thankful for your help; one of them even offers you a starfish coin they
-             * had left
-             * over
-             * from a past vacation. They offer you a second one if you can find three numbers in your expense report
-             *  that meet
-             * the same criteria.
-             * <p>
-             * Using the above example again, the three entries that sum to 2020 are 979, 366, and 675. Multiplying them
-             * together
-             * produces the answer, 241861950.
-             * <p>
-             * In your expense report, what is the product of the three entries that sum to 2020?
-             */
-            System.out.println( Constants.THE_ANSWER_IS + getAnswer( 2 ) );
-        }
+        System.out.println( THE_ANSWER_IS_PT1 + part1() );
+        System.out.println( THE_ANSWER_IS_PT2 + part2() );
+    }
+
+    /**
+     * --- Part One ---
+     * Find the two entries that sum to 2020; what do you get if you
+     * multiply them together?
+     *
+     * Answer: 974304
+     */
+    private int part1() throws AnswerNotAvailableException
+    {
+        return getAnswer( 1 );
+    }
+
+
+    /**
+     * --- Part Two ---
+     * The Elves in accounting are thankful for your help; one of them even offers you a starfish coin they
+     * had left
+     * over
+     * from a past vacation. They offer you a second one if you can find three numbers in your expense report
+     * that meet
+     * the same criteria.
+     * <p>
+     * Using the above example again, the three entries that sum to 2020 are 979, 366, and 675. Multiplying them
+     * together
+     * produces the answer, 241861950.
+     * <p>
+     * In your expense report, what is the product of the three entries that sum to 2020?
+     *
+     * Answer: 236430480
+     */
+    private int part2() throws AnswerNotAvailableException
+    {
+        return getAnswer( 2 );
     }
 
     /**
      * Return the answer to the given part
+     *
      * @param part the criteria switch depending on which question part
      */
-    private int getAnswer( final int part) throws AnswerNotAvailableException
+    private int getAnswer( final int part ) throws AnswerNotAvailableException
     {
         // Get the values from the file
         final List<Integer> integerList = getData();
@@ -108,7 +118,7 @@ public class day1
             for ( final int x : others )
             {
 
-                if( part == 1)
+                if ( part == 1 )
                 {
                     // If sum matches, return the product
                     if ( i + x == 2020 )
@@ -116,7 +126,7 @@ public class day1
                         return i * x;
                     }
                 }
-                else if( part == 2)
+                else if ( part == 2 )
                 {
                     // Remove this value from the list
                     final List<Integer> others2 = new ArrayList<>( integerList );
@@ -145,23 +155,7 @@ public class day1
      */
     private List<Integer> getData()
     {
-        final URL resource = getClass().getClassLoader().getResource( getClass().getName() );
-        final List<Integer> numberList = new ArrayList<>();
-        try
-        {
-            assert resource != null;
-            try ( final Stream<String> stream = Files.lines( Paths.get( resource.getPath() ) ) )
-            {
-                stream.forEach( number -> {
-                    numberList.add( Integer.parseInt( number ) );
-                } );
-            }
-        }
-        catch ( final IOException e )
-        {
-            e.printStackTrace();
-        }
-        return numberList;
+        return AOCUtils.getIntegerData( getClass().getName() );
     }
 
 }
