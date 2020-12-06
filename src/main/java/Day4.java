@@ -435,6 +435,9 @@ public class Day4
 
     /**
      * Checks the logic against the examples in the question
+     * <p>
+     * NOTE: These require the VM option '-enableassertions' to be added when AdventOfCode is ran in order to halt
+     * execution.
      */
     private void testLogic()
     {
@@ -452,7 +455,7 @@ public class Day4
                 "",
                 "hcl:#cfa07d eyr:2025 pid:166559648",
                 "iyr:2011 ecl:brn hgt:59in" );
-        assert checkPassports( false, exampleData ) == 2;
+        assert checkPassports( false, exampleData ) == 2 : TEST_FAILED;
 
         // All these should be invalid
         final List<String> invalidPassports = Arrays.asList(
@@ -469,7 +472,7 @@ public class Day4
                 "hgt:59cm ecl:zzz",
                 "eyr:2038 hcl:74454a iyr:2023",
                 "pid:3556412378 byr:2007" );
-        assert checkPassports( true, invalidPassports ) == 0;
+        assert checkPassports( true, invalidPassports ) == 0 : TEST_FAILED;
 
         // All these should be valid
         final List<String> validPassports = Arrays.asList(
@@ -485,7 +488,7 @@ public class Day4
                 "eyr:2022",
                 "",
                 "iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719" );
-        assert checkPassports( true, validPassports ) == 4;
+        assert checkPassports( true, validPassports ) == 4 : TEST_FAILED;
     }
 }
 

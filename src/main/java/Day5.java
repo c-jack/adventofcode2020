@@ -286,11 +286,14 @@ public class Day5
     /**
      * Checks the logic against the examples in the question.
      * Part 2 doesn't have a validation example, so we'll just use part 1
+     * <p>
+     * NOTE: These require the VM option '-enableassertions' to be added when AdventOfCode is ran in order to halt
+     * execution.
      *
      * @throws AnswerNotAvailableException if the logic is broken or the sample data is invalid.
      */
     private void testLogic() throws AnswerNotAvailableException
     {
-        assert part1( Collections.singletonList( "FBFBBFFRLR" )) == 357;
+        assert part1( Collections.singletonList( "FBFBBFFRLR" ) ) == 357 : PART_1_TEST_FAILED;
     }
 }

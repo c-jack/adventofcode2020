@@ -208,6 +208,9 @@ public class Day3
 
     /**
      * Checks the logic against the examples in the question
+     *
+     * NOTE: These require the VM option '-enableassertions' to be added when AdventOfCode is ran in order to halt
+     * execution.
      */
     private void testLogic()
     {
@@ -223,7 +226,7 @@ public class Day3
                 "#.##...#...",
                 "#...##....#",
                 ".#..#...#.#" );
-        assert countTrees( false, 3, 1, exampleData ) == 7;
+        assert countTrees( false, 3, 1, exampleData ) == 7 : PART_1_TEST_FAILED;
 
         final int part2 = countTrees( false, 1, 1, exampleData )
                 * countTrees( false, 3, 1, exampleData )
@@ -231,6 +234,6 @@ public class Day3
                 * countTrees( false, 7, 1, exampleData )
                 * countTrees( false, 1, 2, exampleData );
 
-        assert part2 == 336;
+        assert part2 == 336 : PART_2_TEST_FAILED;
     }
 }

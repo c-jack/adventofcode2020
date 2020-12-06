@@ -15,4 +15,7 @@ public class Constants
     public static final String SINGLE_SPACE = " ";
     public static final String COLON = ":";
     public static final String HYPHEN = "-";
+    public static final String PART_1_TEST_FAILED = "Part 1 test failed!";
+    public static final String PART_2_TEST_FAILED = "Part 2 test failed!";
+    public static final String TEST_FAILED = "Test failed!";
 }

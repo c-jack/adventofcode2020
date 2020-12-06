@@ -53,6 +53,7 @@ import utils.AOCUtils;
  */
 public class Day1
 {
+
     /**
      * Constructor
      */
@@ -69,7 +70,7 @@ public class Day1
      * --- Part One ---
      * Find the two entries that sum to 2020; what do you get if you
      * multiply them together?
-     *
+     * <p>
      * Answer: 974304
      */
     private int part1() throws AnswerNotAvailableException
@@ -91,7 +92,7 @@ public class Day1
      * produces the answer, 241861950.
      * <p>
      * In your expense report, what is the product of the three entries that sum to 2020?
-     *
+     * <p>
      * Answer: 236430480
      */
     private int part2() throws AnswerNotAvailableException
@@ -102,7 +103,7 @@ public class Day1
     /**
      * Return the answer to the given part
      *
-     * @param part the criteria switch depending on which question part
+     * @param part        the criteria switch depending on which question part
      * @param integerList the data to check
      */
     private int getAnswer( final int part, final List<Integer> integerList ) throws AnswerNotAvailableException
@@ -163,12 +164,15 @@ public class Day1
 
     /**
      * Checks the logic against the examples in the question
+     * <p>
+     * NOTE: These require the VM option '-enableassertions' to be added when AdventOfCode is ran in order to halt
+     * execution.
      *
      * @throws AnswerNotAvailableException if the logic is broken or the sample data is invalid.
      */
     private void testLogic() throws AnswerNotAvailableException
     {
-        assert getAnswer( 1, Arrays.asList( 1721, 979, 366, 299, 675, 1456 ) ) == 514579;
-        assert getAnswer( 2, Arrays.asList( 1721, 979, 366, 299, 675, 1456 ) ) == 241861950;
+        assert getAnswer( 1, Arrays.asList( 1721, 979, 366, 299, 675, 1456 ) ) == 514579 : PART_1_TEST_FAILED;
+        assert getAnswer( 2, Arrays.asList( 1721, 979, 366, 299, 675, 1456 ) ) == 241861950 : PART_2_TEST_FAILED;
     }
 }

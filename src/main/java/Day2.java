@@ -228,11 +228,15 @@ public class Day2
 
     /**
      * Checks the logic against the examples in the question
+     * <p>
+     * NOTE: These require the VM option '-enableassertions' to be added when AdventOfCode is ran in order to halt
+     * execution.
      */
     private void testLogic()
     {
         final List<String> exampleData = Arrays.asList( "1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc" );
-        assert getIncorrectPasswords( 1, exampleData ).get( CORRECT_PASSWORDS_KEY ).size() == 2;
-        assert getIncorrectPasswords( 2, exampleData ).get( CORRECT_PASSWORDS_KEY ).size() == 1;
+
+        assert getIncorrectPasswords( 1, exampleData ).get( CORRECT_PASSWORDS_KEY ).size() == 2 : PART_1_TEST_FAILED;
+        assert getIncorrectPasswords( 2, exampleData ).get( CORRECT_PASSWORDS_KEY ).size() == 1 : PART_2_TEST_FAILED;
     }
 }
