@@ -35,7 +35,7 @@ public class AdventOfCode
         selectionMap.put( "4", "Day 4: Passport Processing" );
         selectionMap.put( "5", "Day 5: Binary Boarding" );
         selectionMap.put( "6", "Day 6: Custom Customs" );
-        selectionMap.put( "7", "Day 7: TBA" );
+        selectionMap.put( "7", "Day 7: Handy Haversacks" );
         selectionMap.put( "8", "Day 8: TBA" );
         selectionMap.put( "9", "Day 9: TBA" );
         selectionMap.put( "10", "Day 10: TBA" );
@@ -120,6 +120,8 @@ public class AdventOfCode
                     new Day6();
                     break;
                 case "7":
+                    new Day7();
+                    break;
                 case "8":
                 case "9":
                 case "10":
