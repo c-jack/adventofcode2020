@@ -207,6 +207,14 @@ public class Day5
         aisle = reduceList( aisle, strategy );
     }
 
+
+    /**
+     * Reduced the provided Integer list by removing either the upper or lower half, as dictated by the {@code strategy}
+     *
+     * @param integerList the list of integers to reduce
+     * @param strategy the {@link Strategy} to employ
+     * @return the reduced list
+     */
     private List<Integer> reduceList( final List<Integer> integerList, final Strategy strategy )
     {
         // Find the min, max, and range
