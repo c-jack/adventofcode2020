@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * Copyright (c) 8/12/2020 Chris Jackson (c-jack)
  * adventofcode.Template
  */
 
@@ -72,6 +72,6 @@ public class Template
      */
     private void testLogic()
     {
-        assert 1 == 1;
+        assert 1 == 1 : PART_1_TEST_FAILED;
     }
 }

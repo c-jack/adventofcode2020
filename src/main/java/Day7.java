@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
- * adventofcode.Template
+ * Copyright (c) 7/12/2020 Chris Jackson (c-jack)
+ * adventofcode.Day7
  */
 
 import static constants.Constants.*;

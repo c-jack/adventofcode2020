@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 5/12/2020 Chris Jackson (c-jack)
+ * Copyright (c) 8/12/2020 Chris Jackson (c-jack)
  * adventofcode.AdventOfCode
  */
 
@@ -36,7 +36,7 @@ public class AdventOfCode
         selectionMap.put( "5", "Day 5: Binary Boarding" );
         selectionMap.put( "6", "Day 6: Custom Customs" );
         selectionMap.put( "7", "Day 7: Handy Haversacks" );
-        selectionMap.put( "8", "Day 8: TBA" );
+        selectionMap.put( "8", "Day 8: Handheld Halting" );
         selectionMap.put( "9", "Day 9: TBA" );
         selectionMap.put( "10", "Day 10: TBA" );
         selectionMap.put( "quit", "Exit" );
@@ -123,6 +123,8 @@ public class AdventOfCode
                     new Day7();
                     break;
                 case "8":
+                    new Day8();
+                    break;
                 case "9":
                 case "10":
                 default:
