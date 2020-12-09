@@ -35,7 +35,7 @@ public class Template
     /**
      * --- Part One ---
      *
-     * @param data
+     * @param data the data to process for the question
      */
     private int part1( final List<String> data )
     {
@@ -45,7 +45,7 @@ public class Template
     /**
      * --- Part Two ---
      *
-     * @param data
+     * @param data the data to process for the question
      */
     private long part2( final List<String> data )
     {

@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * Advent of Code Utils
+ * Some static methods to help set up the challenge solutions
+ *
  * @author chris.jackson
  */
 public class AOCUtils
@@ -55,6 +58,23 @@ public class AOCUtils
         for ( final String line : getData( resourceName ) )
         {
             dataStringList.add( Integer.valueOf( line ) );
+        }
+
+        return dataStringList;
+    }
+
+    /**
+     * Get the data for the question
+     *
+     * @param resourceName name of the resource to load
+     * @return list of Long values, each representing a line from the resource
+     */
+    public static List<Long> getLongData( final String resourceName )
+    {
+        final List<Long> dataStringList = new ArrayList<>();
+        for ( final String line : getData( resourceName ) )
+        {
+            dataStringList.add( Long.valueOf( line ) );
         }
 
         return dataStringList;
