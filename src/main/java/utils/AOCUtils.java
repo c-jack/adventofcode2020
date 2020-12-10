@@ -54,8 +54,18 @@ public class AOCUtils
      */
     public static List<Integer> getIntegerData( final String resourceName )
     {
+        return convertStringListToIntList( getData( resourceName ) );
+    }
+
+    /**
+     * Converts a list of String items to a list of Integer items
+     * @param data the String list to convert
+     * @return a converted Integer list
+     */
+    public static List<Integer> convertStringListToIntList( final List<String> data )
+    {
         final List<Integer> dataStringList = new ArrayList<>();
-        for ( final String line : getData( resourceName ) )
+        for ( final String line : data )
         {
             dataStringList.add( Integer.valueOf( line ) );
         }

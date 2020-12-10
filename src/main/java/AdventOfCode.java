@@ -38,7 +38,7 @@ public class AdventOfCode
         selectionMap.put( "7", "Day 7: Handy Haversacks" );
         selectionMap.put( "8", "Day 8: Handheld Halting" );
         selectionMap.put( "9", "Day 9: Encoding Error" );
-        selectionMap.put( "10", "Day 10: TBA" );
+        selectionMap.put( "10", "Day 10: Adapter Array" );
         selectionMap.put( "quit", "Exit" );
     }
 
@@ -129,6 +129,8 @@ public class AdventOfCode
                     new Day9();
                     break;
                 case "10":
+                    new Day10();
+                    break;
                 default:
                     throw new AnswerNotAvailableException();
             }
