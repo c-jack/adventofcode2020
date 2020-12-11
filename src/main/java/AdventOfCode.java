@@ -3,7 +3,7 @@
  * adventofcode.AdventOfCode
  */
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ import exception.AnswerNotAvailableException;
  */
 public class AdventOfCode
 {
-    final static Map<String, String> selectionMap = new HashMap<>();
+    final static Map<String, String> selectionMap = new LinkedHashMap<>();
 
     public static void main( final String[] args )
     {
@@ -39,6 +39,7 @@ public class AdventOfCode
         selectionMap.put( "8", "Day 8: Handheld Halting" );
         selectionMap.put( "9", "Day 9: Encoding Error" );
         selectionMap.put( "10", "Day 10: Adapter Array" );
+        selectionMap.put( "11", "Day 11: Seating System" );
         selectionMap.put( "quit", "Exit" );
     }
 
@@ -130,6 +131,9 @@ public class AdventOfCode
                     break;
                 case "10":
                     new Day10();
+                    break;
+                case "11":
+                    new Day11();
                     break;
                 default:
                     throw new AnswerNotAvailableException();
