@@ -142,19 +142,31 @@ public class Day11
      */
     private int part1( final SeatMap seatMap )
     {
+        return calculateOccupiedSeatsWhenSettled( seatMap, 1 );
+    }
+
+
+    /**
+     * Calculates how many seats are occupied when the pattern has settled
+     * @param seatMap the {@link SeatMap} to use
+     * @param part the solution part (triggers different rules)
+     * @return number of occupied seats when the pattern has settled
+     */
+    private int calculateOccupiedSeatsWhenSettled( final SeatMap seatMap, final int part )
+    {
         // Set the part to determined the rules to use
-        seatMap.setRulesPart( 1 );
+        seatMap.setRulesPart( part );
 
         // Should the seats be shifted?
-        boolean shift = true;
+        boolean reCalculateSeats = true;
 
         // While seats should be shifted
-        while ( shift )
+        while ( reCalculateSeats )
         {
             seatMap.calculate();
 
             // This will break the loop when set in the SeatMap
-            shift = seatMap.isModified();
+            reCalculateSeats = seatMap.isModified();
         }
 
         // Return the count of the last position
@@ -282,22 +294,7 @@ public class Day11
     private long part2( final SeatMap seatMap )
     {
         // Set the part to determined the rules to use
-        seatMap.setRulesPart( 2 );
-
-        // Should the seats be shifted?
-        boolean shift = true;
-
-        // While seats should be shifted
-        while ( shift )
-        {
-            seatMap.calculate();
-
-            // This will break the loop when set in the SeatMap
-            shift = seatMap.isModified();
-        }
-
-        // Return the count of the last position
-        return seatMap.countOccupiedSeats();
+        return calculateOccupiedSeatsWhenSettled( seatMap, 2 );
     }
 
     /**
