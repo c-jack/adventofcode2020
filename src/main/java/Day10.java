@@ -19,7 +19,6 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import exception.AnswerNotAvailableException;
-import utils.AOCUtils;
 
 
 /**
@@ -124,6 +123,17 @@ import utils.AOCUtils;
  */
 public class Day10
 {
+
+    /**
+     * For the calculative part 2, store the possible permutations in a map so we don't duplicate
+     */
+    private final Map<Integer, Long> permutations = new HashMap<>();
+
+    /**
+     * For storing the list of adapters
+     */
+    private List<Integer> adapterList = new ArrayList<>();
+
     /**
      * Constructor
      */
@@ -132,8 +142,14 @@ public class Day10
         // Check the logic with the example before calculating answers
         testLogic();
 
-        System.out.println( THE_ANSWER_IS_PT1 + part1( getData() ) );
-        System.out.println( THE_ANSWER_IS_PT2 + part2( getData() ) );
+        setData();
+        System.out.println( THE_ANSWER_IS_PT1 + part1() );
+
+        /*
+         *
+         */
+        setData();
+        System.out.println( THE_ANSWER_IS_PT2 + calculatePart2( 0 ) );
     }
 
     /**
@@ -144,12 +160,10 @@ public class Day10
      * number of 1-jolt differences multiplied by the number of 3-jolt differences?
      * <p>
      * Answer: 1980
-     *
-     * @param data the data to process for the question
      */
-    private int part1( final List<Integer> data ) throws AnswerNotAvailableException
+    private int part1() throws AnswerNotAvailableException
     {
-        final Map<Integer, List<Integer>> joltageMap = createJoltageMap( data );
+        final Map<Integer, List<Integer>> joltageMap = createJoltageMap( adapterList );
 
         // Calculate the qty of 1 Jolt adapters and multiply it by the qty of 3 Jolt adapters
         final int sumOfOnes = joltageMap.get( 1 ).size();
@@ -216,16 +230,14 @@ public class Day10
      * What is the total number of distinct ways you can arrange the adapters to connect the charging outlet to your
      * device?
      * <p>
-     * Answer:
-     *
-     * @param data the data to process for the question
+     * Answer: 4628074479616
      */
-    private long part2( final List<Integer> data ) throws AnswerNotAvailableException
+    private long part2() throws AnswerNotAvailableException
     {
         /*
          * NOTE:  I was quite stubborn with this one, and wanted to 'process' the answer, rather than just calculate
          * it with an algorithm or formula.
-         * As a result, this one takes a while to process!
+         * As a result, this one takes a while to process.  It's unusable for the proper data for part 2.
          *
          * The permutations are stored as Strings of comma-separated values, because Integer Lists were just taking
          * forever to process.
@@ -237,8 +249,8 @@ public class Day10
         final Set<String> permutations = new HashSet<>();
 
         // Calculate the maximum value and create the list of adapter jolt values
-        final Integer maxJoltage = calculateMaxJoltage( data );
-        final List<Integer> adapters = createSortedAdapterListWithMax( data, maxJoltage );
+        final Integer maxJoltage = calculateMaxJoltage( adapterList );
+        final List<Integer> adapters = createSortedAdapterListWithMax( adapterList, maxJoltage );
 
 
         // Create the most verbose permutation that uses all the values
@@ -252,7 +264,7 @@ public class Day10
          * Permutations will vary where 'gaps' exist that other adapters can be used between - e.g. where the gap is
          * greater than 1 jolt.
          */
-        final Map<Integer, List<Integer>> joltageMap = createJoltageMap( data );
+        final Map<Integer, List<Integer>> joltageMap = createJoltageMap( adapterList );
 
         // Return the list of gaps that are in jumps of 3
         final List<Integer> gaps = joltageMap.get( 3 );
@@ -290,6 +302,57 @@ public class Day10
         }
         // Return the size
         return permutations.size();
+    }
+
+
+    /**
+     * This solution to Part 2 is the only way we can calculate the larger datasets due to the amount of memory
+     * required to store 4,628,074,479,616 list items!
+     * <p>
+     * In this version, we step over each position in the data (pre-sorted).
+     * From this position we'll iterate again until we get to a point where the number in the following position is
+     * 3 or less away,
+     * determine the variations that can exist.
+     * <p>
+     * Answer: 4628074479616
+     *
+     * @param dataPosition the position in the data
+     * @return number of variations in this iteration
+     */
+    private long calculatePart2( final int dataPosition )
+    {
+        // We'll count the possible permutations from this position
+        long possiblePermutations = 0;
+
+        // If this iteration is the last one, there's only 1 possible variation
+        if ( dataPosition == ( adapterList.size() - 1 ) )
+        {
+            return 1;
+        }
+
+        // If we've already calculated this iteration, just return the answer
+        if ( permutations.containsKey( dataPosition ) )
+        {
+            return permutations.get( dataPosition );
+        }
+
+
+        // Loop through every permutation from this position onwards...
+        for ( int j = dataPosition + 1; j < adapterList.size(); j++ )
+        {
+            // ...until the next number i more than 3 away
+            if ( adapterList.get( j ) - adapterList.get( dataPosition ) > 3 )
+            {
+                break;
+            }
+
+            // otherwise, loop over the next
+            possiblePermutations += calculatePart2( j );
+        }
+
+        // add the permutation to the map
+        permutations.put( dataPosition, possiblePermutations );
+        return possiblePermutations;
     }
 
     /**
@@ -620,13 +683,20 @@ public class Day10
 
 
     /**
-     * Get the data for the question
-     *
-     * @return string list of the data
+     * Get the data for the question.
+     * This is set to the {@link #adapterList} value
      */
-    private List<Integer> getData()
+    private void setData()
     {
-        return AOCUtils.getIntegerData( getClass().getName() );
+        final List<Integer> adapters = new ArrayList<>();
+
+        adapters.add( 0 );
+        adapters.addAll( getIntegerData( getClass().getName() ) );
+
+        // In this solution, the ordering is important
+        Collections.sort( adapters );
+
+        adapterList = adapters;
     }
 
 
@@ -694,8 +764,14 @@ public class Day10
                 10,
                 3 );
         assert calculateMaxJoltage( testData ) == 22 : PART_1_TEST_FAILED;
-        assert part1( largerTestData ) == 220 : PART_1_TEST_FAILED;
-        assert part2( testData ) == 8 : PART_2_TEST_FAILED;
-        assert part2( largerTestData ) == 19208 : PART_2_TEST_FAILED;
+
+        adapterList = largerTestData;
+        assert part1() == 220 : PART_1_TEST_FAILED;
+
+        adapterList = testData;
+        assert part2() == 8 : PART_2_TEST_FAILED;
+
+        adapterList = largerTestData;
+        assert part2() == 19208 : PART_2_TEST_FAILED;
     }
 }
