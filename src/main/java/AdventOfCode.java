@@ -40,6 +40,7 @@ public class AdventOfCode
         selectionMap.put( "9", "Day 9: Encoding Error" );
         selectionMap.put( "10", "Day 10: Adapter Array" );
         selectionMap.put( "11", "Day 11: Seating System" );
+        selectionMap.put( "12", "Day 12: Rain Risk" );
         selectionMap.put( "quit", "Exit" );
     }
 
@@ -134,6 +135,9 @@ public class AdventOfCode
                     break;
                 case "11":
                     new Day11();
+                    break;
+                case "12":
+                    new Day12();
                     break;
                 default:
                     throw new AnswerNotAvailableException();
