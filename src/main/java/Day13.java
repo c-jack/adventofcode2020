@@ -396,7 +396,7 @@ public class Day13
         busMap.put( 0, largestBusId );
         int largestBusIdOrder = 0;
 
-        // Find the order ofr the largest Bus ID in the original list
+        // Find the order of the largest Bus ID in the original list
         for ( int n = 0; n < allBuses.length; n++ )
         {
             if ( allBuses[ n ].equalsIgnoreCase( String.valueOf( largestBusId ) ) )
