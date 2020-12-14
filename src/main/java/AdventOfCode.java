@@ -42,6 +42,7 @@ public class AdventOfCode
         selectionMap.put( "11", "Day 11: Seating System" );
         selectionMap.put( "12", "Day 12: Rain Risk" );
         selectionMap.put( "13", "Day 13: Shuttle Search" );
+        selectionMap.put( "14", "Day 14: Docking Data" );
         selectionMap.put( "quit", "Exit" );
     }
 
@@ -142,6 +143,9 @@ public class AdventOfCode
                     break;
                 case "13":
                     new Day13();
+                    break;
+                case "14":
+                    new Day14();
                     break;
                 default:
                     throw new AnswerNotAvailableException();
