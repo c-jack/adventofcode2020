@@ -183,7 +183,7 @@ public class Day15
             // The number of the previous turn
             final int lastTurn = turn - 1;
 
-            // First 3 numbers return the previous number
+            // First iteratino of the starting numbers return the previous number
             if ( turn <= startingNumbers.size() )
             {
                 lastCalledNumber = Integer.parseInt( startingNumbers.get( lastTurn ) );
@@ -197,7 +197,7 @@ public class Day15
             }
             else
             {
-                // The first time a number (lastCalled) has been spoke should be followed by a 0
+                // The first time a number (lastCalled) has been spoken
                 if ( !numberLastCalled.containsKey( lastCalledNumber ) )
                 {
                     // Add the last number in now it's the first time we've heard it
