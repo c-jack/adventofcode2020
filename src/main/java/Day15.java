@@ -183,7 +183,7 @@ public class Day15
             // The number of the previous turn
             final int lastTurn = turn - 1;
 
-            // First iteratino of the starting numbers return the previous number
+            // First iteration of the starting numbers return the previous number
             if ( turn <= startingNumbers.size() )
             {
                 lastCalledNumber = Integer.parseInt( startingNumbers.get( lastTurn ) );
